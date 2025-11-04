@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+<DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+  <Configuration>
+  <!-- Exclude infrastructure code from coverage -->
+      <ExcludeByFile>
+            <!-- Exclude migrations -->
+        **/Migrations/**/*.cs
+            
+        <!-- Exclude configurations -->
+            **/Data/Configurations/**/*.cs
+            
+        <!-- Exclude seeders -->
+            **/Data/Seeders/**/*.cs
+            
+   <!-- Exclude DbContext -->
+            **/Data/ShopDbContext.cs
+  </ExcludeByFile>
+       
+      <ExcludeByAttribute>
+            <!-- Exclude generated code -->
+      <Attribute>GeneratedCodeAttribute</Attribute>
+     <Attribute>CompilerGeneratedAttribute</Attribute>
+          </ExcludeByAttribute>
+      </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
