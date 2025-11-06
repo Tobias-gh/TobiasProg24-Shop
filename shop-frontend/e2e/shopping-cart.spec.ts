@@ -58,11 +58,9 @@ test.describe('Shopping Cart', () => {
     
     // Click increase button
     await page.getByTestId('increase-quantity').first().click();
-    await page.waitForTimeout(500);
     
-    // Verify quantity increased
-    const newQuantity = await quantityElement.textContent();
-    expect(Number(newQuantity)).toBe(Number(initialQuantity) + 1);
+    // Wait for quantity to update by checking for the new value
+    await expect(quantityElement).toHaveText(String(Number(initialQuantity) + 1), { timeout: 5000 });
     
     // Verify cart badge updated
     await expect(page.getByTestId('cart-badge')).toHaveText('2');
@@ -82,11 +80,9 @@ test.describe('Shopping Cart', () => {
     
     // Click decrease button
     await page.getByTestId('decrease-quantity').first().click();
-    await page.waitForTimeout(500);
     
-    // Verify quantity decreased
-    const newQuantity = await quantityElement.textContent();
-    expect(Number(newQuantity)).toBe(Number(initialQuantity) - 1);
+    // Wait for quantity to update by checking for the new value
+    await expect(quantityElement).toHaveText(String(Number(initialQuantity) - 1), { timeout: 5000 });
   });
 
   test('should remove product from cart', async ({ page }) => {

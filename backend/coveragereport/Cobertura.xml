@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage line-rate="0.8714011516314779" branch-rate="0.84375" lines-covered="454" lines-valid="521" branches-covered="54" branches-valid="64" complexity="159" version="0" timestamp="1762349519">
+<coverage line-rate="0.8714011516314779" branch-rate="0.84375" lines-covered="454" lines-valid="521" branches-covered="54" branches-valid="64" complexity="159" version="0" timestamp="1762447724">
   <sources>
-    <source>C:\Users\Toby\Desktop\TheRealProject\TobiasProg24-Shop\backend\src\server\Shop.Domain\Entities\</source>
     <source>C:\Users\Toby\Desktop\TheRealProject\TobiasProg24-Shop\backend\src\server\</source>
+    <source>C:\Users\Toby\Desktop\TheRealProject\TobiasProg24-Shop\backend\src\server\Shop.Domain\Entities\</source>
   </sources>
   <packages>
     <package name="Shop.Api" line-rate="0.71875" branch-rate="0.6666666666666666" complexity="17">
