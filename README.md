@@ -1,17 +1,25 @@
-﻿## Symmary 
-Backend: 
-	*Code coverage 87%
-	*Unit-tests
-		*Shop.Api.tests (131)
-		*Shop.Application.Tests (70)
-		*Shop.Domain.Tests (1)
-	Total backend tests: 202
-	*Integration.Tests (42)
-Frontend:
-	*Code coverage 100%
-	*Unit-tests (125)
-	*e2e-tests:(36)
-Total backend + frontend unit-tests: 327
+## 📊 Summary 
+
+### Backend
+- **Code coverage:** 87%
+- **Unit tests:**
+  - `Shop.Api.Tests`: 131 tests
+  - `Shop.Application.Tests`: 70 tests
+  - `Shop.Domain.Tests`: 1 test
+  - **Total backend unit tests:** 202
+- **Integration Tests:** 42 tests
+
+### Frontend
+- **Code coverage:** 100%
+- **Unit tests:** 125 tests
+- **E2E tests:** 36 tests
+
+### 📈 Total Test Count
+- **Backend:** 244 tests (202 unit + 42 integration)
+- **Frontend:** 161 tests (125 unit + 36 E2E)
+- **Grand Total:** 405 tests ✅
+
+---
 
 
 ## Backend 
