@@ -20,10 +20,10 @@ public class CartItemRepositoryTests : IDisposable
         .UseInMemoryDatabase($"test_db_{Guid.NewGuid()}")
             .Options;
         _context = new ShopDbContext(options);
-   _sut = new CartItemRepository(_context);
+        _sut = new CartItemRepository(_context);
         _testCategoryId = Guid.NewGuid();
         _testProductId = Guid.NewGuid();
-   _testCartId = Guid.NewGuid();
+        _testCartId = Guid.NewGuid();
 
         SeedTestData();
     }
@@ -33,24 +33,24 @@ public class CartItemRepositoryTests : IDisposable
         var category = new Category
         {
             Id = _testCategoryId,
-  Name = "Test Category",
-    Description = "Category for testing"
+            Name = "Test Category",
+            Description = "Category for testing"
         };
 
         var product = new Product
         {
-    Id = _testProductId,
-   Name = "Test Product",
-          Description = "Product for testing",
-         Price = 99.99m,
-    Stock = 100,
-   CategoryId = _testCategoryId
+            Id = _testProductId,
+            Name = "Test Product",
+            Description = "Product for testing",
+            Price = 99.99m,
+            Stock = 100,
+            CategoryId = _testCategoryId
         };
 
-var cart = new Cart
+        var cart = new Cart
         {
-        Id = _testCartId,
-   SessionId = "test-session",
+            Id = _testCartId,
+            SessionId = "test-session",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -73,10 +73,10 @@ var cart = new Cart
         // Arrange
         var cartItem = new CartItem
         {
-    Id = Guid.NewGuid(),
+            Id = Guid.NewGuid(),
             CartId = _testCartId,
-          ProductId = _testProductId,
-      Quantity = 2
+            ProductId = _testProductId,
+            Quantity = 2
         };
 
         // Act
@@ -85,8 +85,8 @@ var cart = new Cart
         // Assert
         result.Should().NotBeNull();
         result.CartId.Should().Be(_testCartId);
-      result.ProductId.Should().Be(_testProductId);
-  result.Quantity.Should().Be(2);
+        result.ProductId.Should().Be(_testProductId);
+        result.Quantity.Should().Be(2);
         result.AddedAt.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromSeconds(5));
         result.Product.Should().NotBeNull();
         result.Product.Category.Should().NotBeNull();
@@ -94,36 +94,36 @@ var cart = new Cart
         // Verify it's in the database
         var dbItem = await _context.CartItems.FindAsync(cartItem.Id);
         dbItem.Should().NotBeNull();
-  }
+    }
 
     [Fact]
     public async Task GetByIdAsync_WithValidId_ReturnsCartItem()
     {
         // Arrange
         var cartItemId = Guid.NewGuid();
-  var cartItem = new CartItem
- {
-    Id = cartItemId,
-  CartId = _testCartId,
-   ProductId = _testProductId,
+        var cartItem = new CartItem
+        {
+            Id = cartItemId,
+            CartId = _testCartId,
+            ProductId = _testProductId,
             Quantity = 3,
-AddedAt = DateTime.UtcNow
+            AddedAt = DateTime.UtcNow
         };
 
         _context.CartItems.Add(cartItem);
-      await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         _context.Entry(cartItem).State = EntityState.Detached;
 
-    // Act
-  var result = await _sut.GetByIdAsync(cartItemId);
+        // Act
+        var result = await _sut.GetByIdAsync(cartItemId);
 
         // Assert
         result.Should().NotBeNull();
         result!.Id.Should().Be(cartItemId);
         result.Quantity.Should().Be(3);
-   result.Product.Should().NotBeNull();
+        result.Product.Should().NotBeNull();
         result.Product.Name.Should().Be("Test Product");
-      result.Cart.Should().NotBeNull();
+        result.Cart.Should().NotBeNull();
     }
 
     [Fact]
@@ -136,7 +136,7 @@ AddedAt = DateTime.UtcNow
         var result = await _sut.GetByIdAsync(nonExistentId);
 
         // Assert
-   result.Should().BeNull();
+        result.Should().BeNull();
     }
 
     [Fact]
@@ -147,27 +147,27 @@ AddedAt = DateTime.UtcNow
         var cartItem = new CartItem
         {
             Id = cartItemId,
-     CartId = _testCartId,
-   ProductId = _testProductId,
+            CartId = _testCartId,
+            ProductId = _testProductId,
             Quantity = 2,
             AddedAt = DateTime.UtcNow
-      };
+        };
 
         _context.CartItems.Add(cartItem);
-     await _context.SaveChangesAsync();
-     _context.Entry(cartItem).State = EntityState.Detached;
+        await _context.SaveChangesAsync();
+        _context.Entry(cartItem).State = EntityState.Detached;
 
         // Modify quantity
         cartItem.Quantity = 5;
 
- // Act
+        // Act
         var result = await _sut.UpdateAsync(cartItem);
 
         // Assert
         result.Should().NotBeNull();
         result.Quantity.Should().Be(5);
 
-     // Verify in database
+        // Verify in database
         var dbItem = await _context.CartItems.FindAsync(cartItemId);
         dbItem!.Quantity.Should().Be(5);
     }
@@ -176,26 +176,26 @@ AddedAt = DateTime.UtcNow
     public async Task DeleteAsync_WithValidId_RemovesCartItem()
     {
         // Arrange
-  var cartItemId = Guid.NewGuid();
+        var cartItemId = Guid.NewGuid();
         var cartItem = new CartItem
-    {
+        {
             Id = cartItemId,
-   CartId = _testCartId,
-   ProductId = _testProductId,
-      Quantity = 1,
-          AddedAt = DateTime.UtcNow
-      };
+            CartId = _testCartId,
+            ProductId = _testProductId,
+            Quantity = 1,
+            AddedAt = DateTime.UtcNow
+        };
 
         _context.CartItems.Add(cartItem);
         await _context.SaveChangesAsync();
 
         // Act
-     var result = await _sut.DeleteAsync(cartItemId);
+        var result = await _sut.DeleteAsync(cartItemId);
 
         // Assert
-result.Should().BeTrue();
+        result.Should().BeTrue();
 
- // Verify it's removed from database
+        // Verify it's removed from database
         var dbItem = await _context.CartItems.FindAsync(cartItemId);
         dbItem.Should().BeNull();
     }
@@ -220,9 +220,9 @@ result.Should().BeTrue();
         var cartItem = new CartItem
         {
             Id = Guid.NewGuid(),
-      CartId = _testCartId,
-        ProductId = _testProductId,
-      Quantity = 2,
+            CartId = _testCartId,
+            ProductId = _testProductId,
+            Quantity = 2,
             AddedAt = DateTime.UtcNow
         };
 
@@ -230,66 +230,66 @@ result.Should().BeTrue();
         await _context.SaveChangesAsync();
         _context.Entry(cartItem).State = EntityState.Detached;
 
-     // Act
+        // Act
         var result = await _sut.GetByCartAndProductAsync(_testCartId, _testProductId);
 
-    // Assert
-     result.Should().NotBeNull();
+        // Assert
+        result.Should().NotBeNull();
         result!.CartId.Should().Be(_testCartId);
         result.ProductId.Should().Be(_testProductId);
         result.Quantity.Should().Be(2);
-   result.Product.Should().NotBeNull();
+        result.Product.Should().NotBeNull();
         result.Product.Category.Should().NotBeNull();
     }
 
     [Fact]
     public async Task GetByCartAndProductAsync_WithInvalidIds_ReturnsNull()
     {
-     // Arrange
-     var invalidCartId = Guid.NewGuid();
+        // Arrange
+        var invalidCartId = Guid.NewGuid();
         var invalidProductId = Guid.NewGuid();
 
-     // Act
+        // Act
         var result = await _sut.GetByCartAndProductAsync(invalidCartId, invalidProductId);
 
-      // Assert
+        // Assert
         result.Should().BeNull();
     }
 
- [Fact]
+    [Fact]
     public async Task GetByCartIdAsync_WithValidCartId_ReturnsAllItems()
     {
-    // Arrange
+        // Arrange
         var product2 = new Product
         {
-     Id = Guid.NewGuid(),
-     Name = "Product 2",
-         Price = 49.99m,
- Stock = 50,
-       CategoryId = _testCategoryId
+            Id = Guid.NewGuid(),
+            Name = "Product 2",
+            Price = 49.99m,
+            Stock = 50,
+            CategoryId = _testCategoryId
         };
 
-  _context.Products.Add(product2);
+        _context.Products.Add(product2);
 
-      var items = new List<CartItem>
+        var items = new List<CartItem>
         {
-   new()
+            new()
             {
-      Id = Guid.NewGuid(),
- CartId = _testCartId,
-   ProductId = _testProductId,
-          Quantity = 2,
- AddedAt = DateTime.UtcNow
-       },
-new()
-      {
-     Id = Guid.NewGuid(),
-           CartId = _testCartId,
-        ProductId = product2.Id,
-    Quantity = 3,
-      AddedAt = DateTime.UtcNow
-  }
-        };
+                Id = Guid.NewGuid(),
+                CartId = _testCartId,
+                ProductId = _testProductId,
+                Quantity = 2,
+                AddedAt = DateTime.UtcNow
+            },
+            new()
+                {
+                Id = Guid.NewGuid(),
+                CartId = _testCartId,
+                ProductId = product2.Id,
+                Quantity = 3,
+                AddedAt = DateTime.UtcNow
+            }
+                };
 
         _context.CartItems.AddRange(items);
         await _context.SaveChangesAsync();
@@ -298,54 +298,54 @@ new()
         // Act
         var result = await _sut.GetByCartIdAsync(_testCartId);
 
-    // Assert
-    var itemList = result.ToList();
-      itemList.Should().HaveCount(2);
+        // Assert
+        var itemList = result.ToList();
+        itemList.Should().HaveCount(2);
         itemList.Should().Contain(i => i.ProductId == _testProductId && i.Quantity == 2);
         itemList.Should().Contain(i => i.ProductId == product2.Id && i.Quantity == 3);
         itemList.Should().OnlyContain(i => i.Product != null);
-    itemList.Should().OnlyContain(i => i.Cart != null);
+        itemList.Should().OnlyContain(i => i.Cart != null);
     }
 
     [Fact]
     public async Task GetByCartIdAsync_WithEmptyCart_ReturnsEmptyList()
     {
-   // Arrange
+        // Arrange
         var emptyCartId = Guid.NewGuid();
         var emptyCart = new Cart
         {
-      Id = emptyCartId,
-  SessionId = "empty-cart",
-  CreatedAt = DateTime.UtcNow,
+            Id = emptyCartId,
+            SessionId = "empty-cart",
+            CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
-};
+        };
 
         _context.Carts.Add(emptyCart);
         await _context.SaveChangesAsync();
 
         // Act
-      var result = await _sut.GetByCartIdAsync(emptyCartId);
+        var result = await _sut.GetByCartIdAsync(emptyCartId);
 
         // Assert
-     result.Should().BeEmpty();
-  }
+        result.Should().BeEmpty();
+    }
 
     [Fact]
     public async Task DeleteByCartIdAsync_WithValidCartId_RemovesAllItems()
     {
         // Arrange
         var product2 = new Product
-    {
-      Id = Guid.NewGuid(),
-          Name = "Product 2",
-      Price = 49.99m,
-       Stock = 50,
+        {
+            Id = Guid.NewGuid(),
+            Name = "Product 2",
+            Price = 49.99m,
+            Stock = 50,
             CategoryId = _testCategoryId
         };
 
         _context.Products.Add(product2);
 
-      var items = new List<CartItem>
+        var items = new List<CartItem>
         {
             new()
      {
@@ -369,10 +369,10 @@ new()
         await _context.SaveChangesAsync();
 
         // Act
-      var result = await _sut.DeleteByCartIdAsync(_testCartId);
+        var result = await _sut.DeleteByCartIdAsync(_testCartId);
 
         // Assert
-      result.Should().Be(2);
+        result.Should().Be(2);
 
         // Verify all items removed
         var remainingItems = await _context.CartItems
@@ -384,14 +384,14 @@ new()
     [Fact]
     public async Task DeleteByCartIdAsync_WithEmptyCart_ReturnsZero()
     {
- // Arrange
+        // Arrange
         var emptyCartId = Guid.NewGuid();
         var emptyCart = new Cart
         {
-         Id = emptyCartId,
-          SessionId = "empty-cart",
-      CreatedAt = DateTime.UtcNow,
-         UpdatedAt = DateTime.UtcNow
+            Id = emptyCartId,
+            SessionId = "empty-cart",
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
         };
 
         _context.Carts.Add(emptyCart);
@@ -406,26 +406,26 @@ new()
 
     [Fact]
     public async Task CreateAsync_SetsAddedAtTimestamp()
-  {
-   // Arrange
- var cartItem = new CartItem
-   {
+    {
+        // Arrange
+        var cartItem = new CartItem
+        {
             Id = Guid.NewGuid(),
-     CartId = _testCartId,
+            CartId = _testCartId,
             ProductId = _testProductId,
-    Quantity = 1
-    };
+            Quantity = 1
+        };
 
         var beforeCreate = DateTime.UtcNow;
 
         // Act
-      var result = await _sut.CreateAsync(cartItem);
+        var result = await _sut.CreateAsync(cartItem);
 
         var afterCreate = DateTime.UtcNow;
 
-    // Assert
+        // Assert
         result.AddedAt.Should().BeOnOrAfter(beforeCreate);
-result.AddedAt.Should().BeOnOrBefore(afterCreate);
+        result.AddedAt.Should().BeOnOrBefore(afterCreate);
     }
 
     [Fact]
@@ -434,22 +434,22 @@ result.AddedAt.Should().BeOnOrBefore(afterCreate);
         // Arrange
         var cartItem = new CartItem
         {
-     Id = Guid.NewGuid(),
-     CartId = _testCartId,
+            Id = Guid.NewGuid(),
+            CartId = _testCartId,
             ProductId = _testProductId,
-     Quantity = 1,
-      AddedAt = DateTime.UtcNow
+            Quantity = 1,
+            AddedAt = DateTime.UtcNow
         };
 
-     _context.CartItems.Add(cartItem);
-  await _context.SaveChangesAsync();
-    _context.Entry(cartItem).State = EntityState.Detached;
+        _context.CartItems.Add(cartItem);
+        await _context.SaveChangesAsync();
+        _context.Entry(cartItem).State = EntityState.Detached;
 
-    // Act
-    var result = await _sut.GetByCartAndProductAsync(_testCartId, _testProductId);
+        // Act
+        var result = await _sut.GetByCartAndProductAsync(_testCartId, _testProductId);
 
         // Assert
-   result.Should().NotBeNull();
+        result.Should().NotBeNull();
         result!.Product.Should().NotBeNull();
         result.Product.Category.Should().NotBeNull();
         result.Product.Category!.Name.Should().Be("Test Category");

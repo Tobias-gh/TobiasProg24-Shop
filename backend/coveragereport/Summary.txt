@@ -1,0 +1,50 @@
+Summary
+  Generated on: 2025-11-05 - 14:31:59
+  Coverage date: 2025-11-05 - 14:31:55 - 2025-11-05 - 14:31:57
+  Parser: MultiReport (4x Cobertura)
+  Assemblies: 4
+  Classes: 22
+  Files: 18
+  Line coverage: 87.1%
+  Covered lines: 454
+  Uncovered lines: 67
+  Coverable lines: 521
+  Total lines: 987
+  Branch coverage: 84.3% (54 of 64)
+  Covered branches: 54
+  Total branches: 64
+  Method coverage: 92.9% (105 of 113)
+  Full method coverage: 91.1% (103 of 113)
+  Covered methods: 105
+  Fully covered methods: 103
+  Total methods: 113
+
+Shop.Api                                                71.8%
+  Program                                                  0%
+  Shop.Api.Controllers.CartsController                   100%
+  Shop.Api.Controllers.CategoriesController              100%
+  Shop.Api.Controllers.ProductsController                100%
+
+Shop.Application                                        93.4%
+  Shop.Application.Dtos.AddToCartRequest                 100%
+  Shop.Application.Dtos.CartDto                          100%
+  Shop.Application.Dtos.CartItemDto                     63.6%
+  Shop.Application.Dtos.CartSummaryDto                   100%
+  Shop.Application.Dtos.CategoryDto                      100%
+  Shop.Application.Dtos.ProductDto                       100%
+  Shop.Application.Dtos.UpdateCartItemRequest            100%
+  Shop.Application.Services.Cart.CartService            92.1%
+  Shop.Application.Services.Category.CategoryService     100%
+  Shop.Application.Services.Product.ProductService       100%
+
+Shop.Domain                                              100%
+  Shop.Domain.Entities.Cart                              100%
+  Shop.Domain.Entities.CartItem                          100%
+  Shop.Domain.Entities.Category                          100%
+  Shop.Domain.Entities.Product                           100%
+
+Shop.Infrastructure                                       88%
+  Shop.Infrastructure.Repositories.CartItemRepository    100%
+  Shop.Infrastructure.Repositories.CartRepository       67.3%
+  Shop.Infrastructure.Repositories.CategoryRepository    100%
+  Shop.Infrastructure.Repositories.ProductRepository     100%

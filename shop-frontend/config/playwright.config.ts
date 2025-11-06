@@ -6,7 +6,7 @@ declare const process: { env: { [key: string]: string | undefined } };
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './e2e',
+  testDir: '../e2e',
   
   /* Run tests in files in parallel */
   fullyParallel: true,

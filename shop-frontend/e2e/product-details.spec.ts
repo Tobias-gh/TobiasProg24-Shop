@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Product Details', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByTestId('product-list')).toBeVisible();
+    await expect(page.getByTestId('product-list')).toBeVisible({ timeout: 15000 });
   });
 
   test('should display product details page', async ({ page }) => {

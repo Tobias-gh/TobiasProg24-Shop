@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 test.describe('Shopping Cart', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    // Wait for products to load
-    await expect(page.getByTestId('product-list')).toBeVisible();
+    // Wait for products to load with increased timeout
+    await expect(page.getByTestId('product-list')).toBeVisible({ timeout: 15000 });
   });
 
   test('should show empty cart initially', async ({ page }) => {

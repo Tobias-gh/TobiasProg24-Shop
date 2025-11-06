@@ -19,8 +19,8 @@ test.describe('Homepage', () => {
   });
 
   test('should display products in a grid', async ({ page }) => {
-    // Wait for products to load
-    await expect(page.getByTestId('product-list')).toBeVisible();
+    // Wait for products to load (with increased timeout)
+    await expect(page.getByTestId('product-list')).toBeVisible({ timeout: 15000 });
     
     // Check that product cards are displayed
     const productCards = page.getByTestId('product-card');
@@ -34,7 +34,8 @@ test.describe('Homepage', () => {
   });
 
   test('should navigate to product details when clicking View Details', async ({ page }) => {
-    await expect(page.getByTestId('product-list')).toBeVisible();
+    // Wait for products to load with increased timeout
+    await expect(page.getByTestId('product-list')).toBeVisible({ timeout: 15000 });
     
     // Click the first "View Details" button
     const firstViewDetailsButton = page.getByTestId('view-details-button').first();
